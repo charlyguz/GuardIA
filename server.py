@@ -12,7 +12,7 @@ CORS(app)
 
 # Cargar el modelo YOLOv5
 model_path = 'yolov5s.pt'  # Ajusta esto si tu archivo .pt está en otro lugar
-model = torch.hub.load('ultralytics/yolov5', 'custom', path=model_path)  # Utiliza el repositorio de yolo con el que entrenaste tu modelo
+model = torch.hub.load('ultralytics/yolov5', 'custom', path=model_path)  # Cargar el modelo YOLOv5
 
 @app.route('/')
 def index():
@@ -24,7 +24,7 @@ def process_frame():
         return "No frame provided", 400
 
     file = request.files['frame']
-    img = Image.open(io.BytesIO(file.read())).convert('RGB')  # Asegúrate de que la imagen esté en RGB
+    img = Image.open(io.BytesIO(file.read())).convert('RGB')  # Convertir a RGB para que sea compatible con YOLOv5
 
     results = model(img)
 
