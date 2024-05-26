@@ -8,16 +8,16 @@ function Loggin() {
   const [password, setPassword] = useState('');
 
   const usernameToId = {
-    'admin': 0,
-    'casa': 1,
-    'c5': 2,
-    'transporte': 3
+    'admin': '/dashboardAdmin',
+    'casa': '/dashboardHome',
+    'c5': '/dashboardC5',
+    'transporte': '/dashboardMobility'
   };
   
   const handleLogin = () => {
-    const userId = usernameToId[username];
-    if (userId !== undefined) {
-        navigate(`/dashboard?user=${userId}`);
+    const dashboardRoute = usernameToId[username];
+    if (dashboardRoute) {
+      navigate(dashboardRoute);
     } else {
       message.error('Usuario no encontrado');
     }

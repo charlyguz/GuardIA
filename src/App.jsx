@@ -1,7 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
 import Loggin from './Loggin/Loggin';
-import Dashboard from './Dashboard/Dashboard';
+import Dashboard from './Dashboards/Dashboard';
+import DashboardMobility from './Dashboards/DashboardMobility';
+
 
 function App() {
   //const navigate = useNavigate();
@@ -14,6 +16,7 @@ function App() {
         {/* <Route path="/loggin" element={<Loggin />} /> */}
         <Route path="/" element={<Loggin />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboardMobility" element={<DashboardMobility />} />
       </Routes>
   </Router>
   );
