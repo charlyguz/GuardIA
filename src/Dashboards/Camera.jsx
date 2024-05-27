@@ -1,13 +1,16 @@
 import { useState, useRef, useEffect } from 'react';
 import { message } from 'antd';
 
-const Camera = ( {label} ) => {
+const Camera = ({ label, setDanger_prob }) => {
     const inputVideoRef = useRef(null);
     const processedCanvasRef = useRef(null);
     const startButtonRef = useRef(null);
     const stopButtonRef = useRef(null);
 
-    const serverUrl = 'http://localhost:5000/process';  // URL del servidor Flask
+    const [maxConfidence, setMaxConfidence] = useState(0.0);
+
+    const serverUrlImage = 'http://localhost:5000/process_image';  // URL del servidor Flask para la imagen
+    const serverUrlConfidence = 'http://localhost:5000/process_confidence';  // URL del servidor Flask para la confianza
 
     let stream;
     let requestAnimationFrameId;
@@ -77,16 +80,26 @@ const Camera = ( {label} ) => {
             formData.append('frame', blob, 'frame.jpg');
 
             try {
-                const response = await fetch(serverUrl, {
-                    method: 'POST',
-                    body: formData
-                });
+                const [imageResponse, confidenceResponse] = await Promise.all([
+                    fetch(serverUrlImage, {
+                        method: 'POST',
+                        body: formData
+                    }),
+                    fetch(serverUrlConfidence, {
+                        method: 'POST',
+                        body: formData
+                    })
+                ]);
 
-                if (response.ok) {
-                    const processedBlob = await response.blob();
+                if (imageResponse.ok && confidenceResponse.ok) {
+                    const processedBlob = await imageResponse.blob();
                     displayProcessedFrame(processedBlob);
+
+                    const confidenceResult = await confidenceResponse.json();
+                    setMaxConfidence(confidenceResult.max_confidence);
+                    setDanger_prob(confidenceResult.max_confidence)
                 } else {
-                    message.error('Error processing frame: ' + response.statusText);
+                    message.error('Error processing frame');
                 }
             } catch (error) {
                 message.error('Error sending frame to server: ' + error.message);
@@ -120,6 +133,9 @@ const Camera = ( {label} ) => {
                     <button ref={stopButtonRef} id="stopButton" className="px-4 py-2 bg-red-500 text-white rounded" disabled>Stop Video</button>
                 </div>
                 <canvas ref={processedCanvasRef} id="processedCanvas" width="640" height="480" className="border-2 border-gray-300 rounded-xl"></canvas>
+                <div className="mt-4">
+                    <h2 className="text-xl">Confianza Máxima: {maxConfidence.toFixed(2)}</h2>
+                </div>
             </div>
         </div>
     );

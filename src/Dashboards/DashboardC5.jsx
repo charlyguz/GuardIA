@@ -17,8 +17,15 @@ export const DashboardC5 = () => {
   const url = "/";
 
   useEffect(() => {
-    if(danger_prob > 0.3 && danger_prob<0.7)
+    if(danger_prob > 30 && danger_prob<70)
       setModalesState(1)
+    else if(danger_prob > 70)
+      setModalesState(2)
+    else
+      setModalesState(0)
+
+      
+      
   }, [danger_prob])
   
 
@@ -148,7 +155,7 @@ export const DashboardC5 = () => {
         <h1 className="text-2xl font-bold">Dashboard Home</h1>
         <div className="flex-grow p-8">
           {
-            selected === 'Cámaras' ? <MultiCameras/> : <Camera label = { selected } />
+            selected === 'Cámaras' ? <MultiCameras/> : <Camera label = { selected } setDanger_prob = {setDanger_prob} />
 
           }
       </div>
