@@ -4,6 +4,7 @@ import Loggin from './Loggin/Loggin';
 import Dashboard from './Dashboards/Dashboard';
 import DashboardMobility from './Dashboards/DashboardMobility';
 import { DashboardHome } from './Dashboards/DashboardHome';
+import { DashboardC5 } from './Dashboards/DashboardC5';
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/dashboardMobility" element={<DashboardMobility />} />
         <Route path="/dashboardHome" element={<DashboardHome/>} />
+        <Route path="/dashboardC5" element={<DashboardC5/>} />
       </Routes>
   </Router>
   );

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import backgroundImage from '../assets/images/background.jpg';
+import backgroundImage from '../assets/images/bg-c5.jpg';
 import { VideoCameraIcon, MegaphoneIcon, CameraIcon, CpuChipIcon } from '@heroicons/react/24/solid';
 import Camera from './Camera';
 import { MultiCameras } from '../components/MultiCameras';
@@ -7,7 +7,7 @@ import { Button, Modal } from 'antd';
 import { useFetcher } from 'react-router-dom';
 
 
-export const DashboardHome = () => {
+export const DashboardC5 = () => {
   const [selected, setSelected] = useState('Cámaras');
 
   const [modalesState, setModalesState] = useState(0);
@@ -69,7 +69,7 @@ export const DashboardHome = () => {
           style={{ backgroundImage: `url(${backgroundImage})` }}
         ></div>
         <nav className="relative z-10 px-4 mt-6">
-          <h2 className="text-4xl font-extrabold text-white my-2 h-28">GuardIA Home</h2>
+          <h2 className="text-4xl font-extrabold text-white my-2 h-28">GuardIA C5</h2>
           <ul className="space-y-4 text-2xl">
           <li 
               className={`flex items-center space-x-3 cursor-pointer ${selected === 'Cámaras' ? 'bg-white text-black rounded-lg' : 'text-white'}`} 
@@ -79,41 +79,53 @@ export const DashboardHome = () => {
               <span>Cámaras</span>
             </li>
             <li 
-              className={`flex items-center space-x-3 cursor-pointer ml-10 ${selected === 'Entrada' ? 'bg-white text-black rounded-lg' : 'text-white'}`} 
-              onClick={() => handleSelection('Entrada')}
+              className={`flex items-center space-x-3 cursor-pointer ml-10 ${selected === 'Eje Lazaro Cardenas - Venus' ? 'bg-white text-black rounded-lg' : 'text-white'}`} 
+              onClick={() => handleSelection('Eje Lazaro Cardenas - Venus')}
             >
-              <span>Entrada</span>
+              <span>Eje Lazaro Cardenas - Venus</span>
             </li>
             <li 
-              className={`flex items-center space-x-3 cursor-pointer ml-10 ${selected === 'Patio' ? 'bg-white text-black rounded-lg' : 'text-white'}`} 
-              onClick={() => handleSelection('Patio')}
+              className={`flex items-center space-x-3 cursor-pointer ml-10 ${selected === 'Eje Lazaro Cardenas - Neptuno' ? 'bg-white text-black rounded-lg' : 'text-white'}`} 
+              onClick={() => handleSelection('Eje Lazaro Cardenas - Neptuno')}
             >
-              <span>Patio</span>
+              <span>Eje Lazaro Cardenas - Neptuno</span>
             </li>
             <li 
-              className={`flex items-center space-x-3 cursor-pointer ml-10 ${selected === 'Sala' ? 'bg-white text-black rounded-lg' : 'text-white'}`} 
-              onClick={() => handleSelection('Sala')}
+              className={`flex items-center space-x-3 cursor-pointer ml-10 ${selected === 'Juan de Dios Batiz [1]' ? 'bg-white text-black rounded-lg' : 'text-white'}`} 
+              onClick={() => handleSelection('Juan de Dios Batiz [1]')}
             >
-              <span>Sala</span>
+              <span>Juan de Dios Batiz [1]</span>
             </li>
             <li 
-              className={`flex items-center space-x-3 cursor-pointer ml-10 ${selected === 'Cócina' ? 'bg-white text-black rounded-lg' : 'text-white'}`} 
-              onClick={() => handleSelection('Cócina')}
+              className={`flex items-center space-x-3 cursor-pointer ml-10 ${selected === 'Juan de Dios Batiz [2]' ? 'bg-white text-black rounded-lg' : 'text-white'}`} 
+              onClick={() => handleSelection('Juan de Dios Batiz [2]')}
             >
-              <span>Cócina</span>
+              <span>Juan de Dios Batiz [2]</span>
             </li>
             <li 
-              className={`flex items-center space-x-3 cursor-pointer ml-10 ${selected === 'Garaje' ? 'bg-white text-black rounded-lg' : 'text-white'}`} 
-              onClick={() => handleSelection('Garaje')}
+              className={`flex items-center space-x-3 cursor-pointer ml-10 ${selected === 'Juan de Dios Batiz [3]' ? 'bg-white text-black rounded-lg' : 'text-white'}`} 
+              onClick={() => handleSelection('Juan de Dios Batiz [3]')}
             >
-              <span>Garaje</span>
+              <span>Juan de Dios Batiz [3]</span>
+            </li>
+            <li 
+              className={`flex items-center space-x-3 cursor-pointer ml-10 ${selected === 'CIC esq. [1]' ? 'bg-white text-black rounded-lg' : 'text-white'}`} 
+              onClick={() => handleSelection('CIC esq. [1]')}
+            >
+              <span>CIC esq. [1]</span>
+            </li>
+            <li 
+              className={`flex items-center space-x-3 cursor-pointer ml-10 ${selected === 'CIC esq. [2]' ? 'bg-white text-black rounded-lg' : 'text-white'}`} 
+              onClick={() => handleSelection('CIC esq. [2]')}
+            >
+              <span>CIC esq. [2]</span>
             </li>
             <li 
               className={`flex items-center space-x-3 cursor-pointer ${selected === 'SOS' ? 'bg-white text-black rounded-lg' : 'text-white'}`} 
               onClick={() => handleSelection('SOS')}
             > 
               <MegaphoneIcon className={`h-10 w-10 ${selected === 'SOS' ? 'text-black rounded-lg' : 'text-white'}`} />
-              <span>SOS</span>
+              <span>Alertar Unidades</span>
             </li>
             <li 
               className={`flex items-center space-x-3 cursor-pointer ${selected === 'Grabaciones' ? 'bg-white text-black rounded-lg' : 'text-white'}`} 
@@ -141,12 +153,14 @@ export const DashboardHome = () => {
           }
       </div>
       <Modal
-                title={<span className='text-2xl font-bold text-white'>SOS</span>}
+                title={<span className='text-2xl font-bold text-white'>Alertar Unidades</span>}
                 visible={isModalVisible}
-                onOk={handleOk}
                 onCancel={handleCancel}
-                okText={'Si'}
                 cancelText='Cancelar'
+                okText={' '}
+                okButtonProps={{
+                  hidden: true
+                }}
                 centered={true}
 
                 styles={{
@@ -163,7 +177,20 @@ export const DashboardHome = () => {
                   
                 }}
       >
-      <span  className='text-xl font-normal text-white'>¿Esta seguro de alertar a las autoridades?</span>
+      <div className="flex flex-col items-center justify-center  ">
+        <span className="text-xl font-normal text-white mb-8 ">¿A qué unidad desea alertar?</span>
+        <div className="flex space-x-4">
+        <Button className="flex flex-col items-center justify-center bg-sky-300">
+          <span className="text-xl font-normal text-center">Policía</span>
+        </Button>
+        <Button className="flex flex-col items-center justify-center bg-red-500">
+          <span className="text-xl font-normal text-center text-black">Bomberos</span>
+        </Button>
+        <Button className="flex flex-col items-center justify-center bg-amber-300">
+          <span className="text-xl font-normal text-center">Paramédicos</span>
+        </Button>
+        </div>
+      </div>
 
       </Modal>
       {/* Modal Alerta */}
@@ -199,7 +226,7 @@ export const DashboardHome = () => {
                 visible={modalesState === 2}
                 onOk={handleOk}
                 onCancel={() => setModalesState(0)}
-                okText={'Alertar a las autoridades'}
+                okText={'Alertar a las unidades!'}
                 cancelText='Cerrar'
                 centered={true}
 
@@ -220,7 +247,7 @@ export const DashboardHome = () => {
       <span  className='text-xl font-normal text-white'>Se ha detectado una situacion de peligro!</span>
 
       </Modal>
-      <Button type="primary" onClick={() => setModalesState(2)}>
+      <Button type="primary" onClick={() => setModalesState(1)}>
                 Open Modal
         </Button>
       </div>
