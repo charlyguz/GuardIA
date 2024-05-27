@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { message } from 'antd';
 
-const Camera = ( {label} ) => {
+export const MultiCameras = () => {
     const inputVideoRef = useRef(null);
     const processedCanvasRef = useRef(null);
     const startButtonRef = useRef(null);
@@ -112,17 +112,22 @@ const Camera = ( {label} ) => {
 
     return (
         <div className="p-4">
-            <h1 className="text-2xl font-bold mb-4">{label}</h1>
+            <h1 className="text-2xl font-bold mb-4">Cámaras</h1>
             <div className="flex flex-col items-center">
                 <video ref={inputVideoRef} id="inputVideo" autoPlay className="border-2 border-gray-300 mb-4 rounded-xl"></video>
                 <div className="flex space-x-4 mb-4">
                     <button ref={startButtonRef} id="startButton" className="px-4 py-2 bg-blue-500 text-white rounded">Start Video</button>
                     <button ref={stopButtonRef} id="stopButton" className="px-4 py-2 bg-red-500 text-white rounded" disabled>Stop Video</button>
                 </div>
-                <canvas ref={processedCanvasRef} id="processedCanvas" width="640" height="480" className="border-2 border-gray-300 rounded-xl"></canvas>
+                <div className="grid grid-cols-3 gap-3">
+                    <canvas ref={processedCanvasRef} id="processedCanvas" width="420" height="310" className="border-2 border-gray-300 rounded-xl"></canvas>
+                    <canvas ref={processedCanvasRef} id="processedCanvas" width="420" height="310" className="border-2 border-gray-300 rounded-xl"></canvas>
+                    <canvas ref={processedCanvasRef} id="processedCanvas" width="420" height="310" className="border-2 border-gray-300 rounded-xl"></canvas>
+                    <canvas ref={processedCanvasRef} id="processedCanvas" width="420" height="310" className="border-2 border-gray-300 rounded-xl"></canvas>
+                    <canvas ref={processedCanvasRef} id="processedCanvas" width="420" height="310" className="border-2 border-gray-300 rounded-xl"></canvas>
+                    <canvas ref={processedCanvasRef} id="processedCanvas" width="420" height="310" className="border-2 border-gray-300 rounded-xl"></canvas>
+                </div>
             </div>
         </div>
     );
 };
-
-export default Camera;
