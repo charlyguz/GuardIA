@@ -33,6 +33,11 @@ const Camera = ({ label, setDanger_prob }) => {
         };
     }, []);
 
+    useEffect(() => {
+        setDanger_prob(maxConfidence);
+    }, [maxConfidence])
+    
+
     const startVideo = async () => {
         try {
             stream = await navigator.mediaDevices.getUserMedia({ video: true });
@@ -97,7 +102,6 @@ const Camera = ({ label, setDanger_prob }) => {
 
                     const confidenceResult = await confidenceResponse.json();
                     setMaxConfidence(confidenceResult.max_confidence);
-                    setDanger_prob(confidenceResult.max_confidence)
                 } else {
                     message.error('Error processing frame');
                 }

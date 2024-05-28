@@ -14,36 +14,51 @@ export const DashboardC5 = () => {
 
   const [danger_prob, setDanger_prob] = useState(0);
 
+  const [dangerState, setdangerState] = useState(0)
+
   const url = "/";
 
-  useEffect(() => {
-    if(danger_prob > 30 && danger_prob<70)
-      setModalesState(1)
-    else if(danger_prob > 70)
-      setModalesState(2)
-    else
-      setModalesState(0)
+const showModalDanger = () => {
+    setModalesState(dangerState)
+}
 
-      
-      
-  }, [danger_prob])
+  useEffect(() => {
+    showModalDanger()
+  }, [dangerState])
   
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(url);
-        const data = await response.json();
-        setDanger_prob(data.valor);
-      } catch (error) {
-        console.error('Error al obtener los datos:', error);
+    let interval
+    if(dangerState===0){
+      if (danger_prob > 30 && danger_prob < 70) {
+        setdangerState(1);
+      } else if (danger_prob > 70) {
+        setdangerState(2);
+      } else {
+        setdangerState(0);
       }
-    };
+      console.log(dangerState);
+    }
+    else
+    {
+      interval = setInterval(() => {
+        console.log(dangerState);
+      if (danger_prob > 30 && danger_prob < 70) {
+        setdangerState(1)
 
-    const interval = setInterval(fetchData, 500); // Realiza la solicitud cada 5 segundos
+      } else if (danger_prob > 70) {
+        setdangerState(2)
+      } else {
+        setdangerState(0);
+      }
+      showModalDanger()
+    }, 800);
+  } // 5000 ms = 5 segundos
 
-    return () => clearInterval(interval); // Limpia el intervalo al desmontar el componente
-  }, []);
+    return () => clearInterval(interval); // Limpia el intervalo cuando el componente se desmonte
+  }, [danger_prob]);
+  
+
   
 
   const handleSelection = (option) => {
@@ -161,7 +176,7 @@ export const DashboardC5 = () => {
       </div>
       <Modal
                 title={<span className='text-2xl font-bold text-white'>Alertar Unidades</span>}
-                visible={isModalVisible}
+                open={isModalVisible}
                 onCancel={handleCancel}
                 cancelText='Cancelar'
                 okText={' '}

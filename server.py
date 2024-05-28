@@ -11,7 +11,7 @@ app = Flask(__name__)
 CORS(app)
 
 # Cargar el modelo YOLOv5
-model_path = 'yolov5s.pt'  # Ajusta esto si tu archivo .pt está en otro lugar
+model_path = 'bestfinal.pt'  # Ajusta esto si tu archivo .pt está en otro lugar
 model = torch.hub.load('ultralytics/yolov5', 'custom', path=model_path)  # Cargar el modelo YOLOv5
 
 @app.route('/')
@@ -66,8 +66,8 @@ if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)
     logger = logging.getLogger(__name__)
 
+    @app.before_first_request
     def log_ready():
         logger.info("Server running on port 5000")
 
-    app.before_first_request(log_ready)
     app.run(debug=True, host='0.0.0.0', port=5000)
