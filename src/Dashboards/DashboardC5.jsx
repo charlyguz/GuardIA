@@ -3,7 +3,7 @@ import backgroundImage from '../assets/images/bg-c5.jpg';
 import { VideoCameraIcon, MegaphoneIcon, CameraIcon, CpuChipIcon } from '@heroicons/react/24/solid';
 import Camera from './Camera';
 import { MultiCameras } from '../components/MultiCameras';
-import { Button, Modal } from 'antd';
+import { Button, Modal, notification } from 'antd';
 import { useFetcher } from 'react-router-dom';
 
 
@@ -22,8 +22,41 @@ const showModalDanger = () => {
     setModalesState(dangerState)
 }
 
+const handleNotification = (probability) => {
+  setDanger_prob(probability);
+
+  if (danger_prob >= 30 && danger_prob <= 60) {
+    notification.info({
+      message: 'Posible Situación Detectada',
+      description: `La probabilidad de que algo esté ocurriendo es del ${probability}%. Debería dar un vistazo.`,
+      style: {
+        backgroundColor: '#4CAF50',
+        color: '#FFFFFF',
+      },
+    });
+  } else if (danger_prob >= 61 && danger_prob <= 80) {
+    notification.warning({
+      message: 'Probable Amenaza Detectada',
+      description: `La probabilidad de una posible amenaza es del ${probability}%. Es posible que alguien necesite ayuda, Debería estar atento a la situación.`,
+      style: {
+        backgroundColor: '#FFEB3B',
+      },
+    });
+  } else if (danger_prob >= 81 && danger_prob <= 99) {
+    notification.error({
+      message: 'Situación de Peligro Detectada',
+      description: `La probabilidad de una situación de peligro es del ${probability}%. Actúe inmediatamente.`,
+      style: {
+        backgroundColor: '#FF0000',
+        color: '#FFFFFF',
+      },
+    });
+    showModal();
+  }
+};
+
   useEffect(() => {
-    showModalDanger()
+    handleNotification()
   }, [dangerState])
   
 
@@ -51,7 +84,6 @@ const showModalDanger = () => {
       } else {
         setdangerState(0);
       }
-      showModalDanger()
     }, 800);
   } // 5000 ms = 5 segundos
 
@@ -174,47 +206,7 @@ const showModalDanger = () => {
 
           }
       </div>
-      <Modal
-                title={<span className='text-2xl font-bold text-white'>Alertar Unidades</span>}
-                open={isModalVisible}
-                onCancel={handleCancel}
-                cancelText='Cancelar'
-                okText={' '}
-                okButtonProps={{
-                  hidden: true
-                }}
-                centered={true}
-
-                styles={{
-                 
-                  
-                  content: {
-                    background: 'rgba(182, 43, 43, 0.64)',
-                    color: 'white'
-                  },
-
-                  header: {
-                    background: 'transparent'
-                  },
-                  
-                }}
-      >
-      <div className="flex flex-col items-center justify-center  ">
-        <span className="text-xl font-normal text-white mb-8 ">¿A qué unidad desea alertar?</span>
-        <div className="flex space-x-4">
-        <Button className="flex flex-col items-center justify-center bg-sky-300">
-          <span className="text-xl font-normal text-center">Policía</span>
-        </Button>
-        <Button className="flex flex-col items-center justify-center bg-red-500">
-          <span className="text-xl font-normal text-center text-black">Bomberos</span>
-        </Button>
-        <Button className="flex flex-col items-center justify-center bg-amber-300">
-          <span className="text-xl font-normal text-center">Paramédicos</span>
-        </Button>
-        </div>
-      </div>
-
-      </Modal>
+      
       {/* Modal Alerta */}
       <Modal
                 title={<span className='text-2xl font-bold text-white'>Actividad Sopechosa</span>}
@@ -242,6 +234,41 @@ const showModalDanger = () => {
       <span  className='text-xl font-normal text-white'>Se ha detectado posible actividad sospechosa!</span>
 
       </Modal>
+
+      <Modal
+          title="Alertar Unidades"
+          visible={isModalVisible}
+          onOk={handleOk}
+          onCancel={handleCancel}
+          centered
+          footer={[
+            <Button key="police" type="primary" onClick={() => alert('Policía alertada!')}>
+              Policía
+            </Button>,
+            <Button key="firefighters" type="primary" onClick={() => alert('Bomberos alertados!')}>
+              Bomberos
+            </Button>,
+            <Button key="paramedics" type="primary" onClick={() => alert('Paramédicos alertados!')}>
+              Paramédicos
+            </Button>,
+          ]}
+          styles={{         
+            content: {
+              background: 'rgba(197, 36, 36, 0.49)',
+              color: 'white'
+            },
+            header: {
+                background: 'transparent'
+              },
+              
+            }}
+          className="rounded-lg w-[700px] bg-red-700 text-white"
+        >
+          <div className="bg-red-700/[0.6] text-white p-4 rounded-lg text-xl">
+            <p>¿Desea alertar a las unidades de emergencia?</p>
+            <p>Probabilidad de riesgo: {danger_prob}</p>
+          </div>
+        </Modal>
 
       <Modal
                 title={<span className='text-2xl font-bold text-white'>Alerta de Peligro</span>}
