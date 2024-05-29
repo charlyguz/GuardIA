@@ -32,7 +32,7 @@ const Camera = ({ onDetection }) => {
       stopButtonRef.current.disabled = false;
       sendFrameToServer();
       checkProbability();
-      checkProbabilityInterval = setInterval(checkProbability, 1000); // Checar cada 2 segundos
+      checkProbabilityInterval = setInterval(checkProbability, 2000); // Checar cada 2 segundos
     } catch (error) {
       message.error("Error accessing webcam: " + error.message);
     }

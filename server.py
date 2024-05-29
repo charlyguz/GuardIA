@@ -10,7 +10,6 @@ import os
 import pathlib
 from pathlib import Path, PureWindowsPath
 
-
 app = Flask(__name__)
 CORS(app)
 
@@ -21,16 +20,13 @@ print(f"Using device: {device}")
 # Cargar el modelo YOLOv5
 pathlib.PosixPath = pathlib.WindowsPath
 
-# Model
-
 # Intentar cargar el modelo personalizado utilizando torch.hub.load
 try:
-    model = torch.hub.load('ultralytics/yolov5', 'custom' , path='bestfinal.pt' )
+    model = torch.hub.load('ultralytics/yolov5', 'custom', path='bestfinal.pt')
     model.to(device)
     print("Modelo cargado exitosamente.")
 except Exception as e:
     print(f"Error al cargar el modelo: {e}")
-
 
 @app.route('/')
 def index():
@@ -70,15 +66,14 @@ def probability():
 
     results = model(img)
     
-    # Clase objetivo a detectar (por ejemplo, 'arma' )
+    # Clase objetivo a detectar (por ejemplo, 'arma')
     target_class = 'arma'
     
     detections = results.pandas().xyxy[0]
-    high_confidence_detections = detections[(detections['name'] == target_class) & (detections['confidence'] > 0.5)]
+    all_detections = detections[detections['name'] == target_class]
     
     response = {
-        "target_detected": not high_confidence_detections.empty,
-        "probabilities": high_confidence_detections['confidence'].tolist()
+        "probabilities": all_detections['confidence'].tolist()
     }
     
     return jsonify(response)

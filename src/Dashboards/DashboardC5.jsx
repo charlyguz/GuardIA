@@ -64,6 +64,23 @@ export const DashboardC5 = () => {
     }
   };
 
+  const fetchProbability = async (formData) => {
+    try {
+      const response = await fetch('http://localhost:5001/probability', {
+        method: 'POST',
+        body: formData,
+      });
+      const data = await response.json();
+      const probabilities = data.probabilities;
+      if (probabilities.length > 0) {
+        const highestProbability = Math.max(...probabilities);
+        handleNotification(highestProbability);
+      }
+    } catch (error) {
+      console.error('Error fetching probability:', error);
+    }
+  };
+
   return (
     <div className="flex min-h-screen">
       <div className="relative w-1/5 min-h-screen bg-opacity-100 overflow-hidden">
@@ -154,15 +171,24 @@ export const DashboardC5 = () => {
       <div className="flex-grow p-8 min-h-screen">
         <h1 className="text-2xl font-bold">Dashboard C5</h1>
         <div className="flex-grow p-8">
-          <Camera label={selected} setDanger_prob={setDanger_prob} onDetection={handleNotification} />
+          <Camera
+            label={selected}
+            setDanger_prob={setDanger_prob}
+            onDetection={(probabilities) => {
+              if (probabilities.length > 0) {
+                const highestProbability = Math.max(...probabilities);
+                handleNotification(highestProbability);
+              }
+            }}
+          />
           <div className="space-y-4">
-            <Button onClick={() => handleNotification([45])} type="primary">
+            <Button onClick={() => handleNotification(45)} type="primary">
               Prueba Alerta Verde (45%)
             </Button>
-            <Button onClick={() => handleNotification([70])} type="primary">
+            <Button onClick={() => handleNotification(70)} type="primary">
               Prueba Alerta Amarilla (70%)
             </Button>
-            <Button onClick={() => handleNotification([90])} type="primary" danger>
+            <Button onClick={() => handleNotification(90)} type="primary" danger>
               Prueba Alerta Roja (90%)
             </Button>
           </div>
