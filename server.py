@@ -51,10 +51,14 @@ def process_confidence():
 
     results = model(img)
     detections = results.xyxy[0].cpu().numpy()
+    
+    class_index = 2;
+    
+    class_detections = detections[detections[:, 5] == class_index]
 
     # Obtener la confianza máxima
-    if len(detections) > 0:
-        max_confidence = np.max(detections[:, 4])  # La confianza está en la quinta columna
+    if len(class_detections) > 0:
+        max_confidence = np.max(class_detections[:, 4])  # La confianza está en la quinta columna
     else:
         max_confidence = 0.0
 
