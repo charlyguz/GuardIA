@@ -218,11 +218,11 @@ const showModalDanger = () => {
       {/* Modal Alerta */}
       <Modal
                 title={<span className='text-2xl font-bold text-white'>Actividad Sopechosa</span>}
-                visible={modalesState === 1}
+                open={modalesState === 1}
                 onOk={handleOk}
                 onCancel={() => setModalesState(0)}
                 okText={'Revisar'}
-                cancelText='Cerrar'
+                cancelText={'Cerrar'}
                 centered={true}
 
                 styles={{
@@ -245,7 +245,7 @@ const showModalDanger = () => {
 
       <Modal
                 title={<span className='text-2xl font-bold text-white'>Alerta de Peligro</span>}
-                visible={modalesState === 2}
+                open={modalesState === 2}
                 onOk={handleOk}
                 onCancel={() => setModalesState(0)}
                 okText={'Alertar a las unidades!'}

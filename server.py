@@ -6,13 +6,16 @@ import cv2
 import numpy as np
 from PIL import Image
 import logging
+import pathlib
+from pathlib import Path, PureWindowsPath
 
 app = Flask(__name__)
 CORS(app)
 
+pathlib.PosixPath = pathlib.WindowsPath
 # Cargar el modelo YOLOv5
 model_path = 'bestfinal.pt'  # Ajusta esto si tu archivo .pt está en otro lugar
-model = torch.hub.load('ultralytics/yolov5', 'custom', path=model_path)  # Cargar el modelo YOLOv5
+model = torch.hub.load('ultralytics/yolov5', 'custom', path=model_path, force_reload=True)  # Cargar el modelo YOLOv5
 
 @app.route('/')
 def index():
