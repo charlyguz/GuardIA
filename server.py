@@ -6,17 +6,36 @@ import cv2
 import numpy as np
 from PIL import Image
 import logging
+import os
+import pathlib
+from pathlib import Path, PureWindowsPath
+
 
 app = Flask(__name__)
 CORS(app)
 
+# Verificar y configurar dispositivo
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+print(f"Using device: {device}")
+
 # Cargar el modelo YOLOv5
-model_path = 'bestfinal.pt'  # Pon el modelo de armas si no no jalan las notificaciones
-model = torch.hub.load('ultralytics/yolov5', 'custom', path=model_path)  # Cargar el modelo YOLOv5
+pathlib.PosixPath = pathlib.WindowsPath
+
+# Model
+
+# Intentar cargar el modelo personalizado utilizando torch.hub.load
+try:
+    model = torch.hub.load('ultralytics/yolov5', 'custom' , path='bestfinal.pt' )
+    model.to(device)
+    print("Modelo cargado exitosamente.")
+except Exception as e:
+    print(f"Error al cargar el modelo: {e}")
+
 
 @app.route('/')
 def index():
-    return "Servidor YOLOv5 activo y funcionando correctamente."
+    device_type = 'GPU' if device.type == 'cuda' else 'CPU'
+    return f"Servidor YOLOv5 activo y funcionando correctamente. \n Usando : {device_type} el dispositivo es {device}"
 
 @app.route('/process', methods=['POST'])
 def process_frame():
@@ -26,6 +45,9 @@ def process_frame():
     file = request.files['frame']
     img = Image.open(io.BytesIO(file.read())).convert('RGB')  # Convertir a RGB para que sea compatible con YOLOv5
 
+    # Verificar el dispositivo en uso antes de la inferencia
+    print(f"Running inference on device: {device}")
+    
     results = model(img)
 
     # Convertir resultados a imagen con anotaciones
@@ -65,8 +87,4 @@ if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)
     logger = logging.getLogger(__name__)
 
-    def log_ready():
-        logger.info("Server running on port 5001")
-
-    app.before_first_request(log_ready)
     app.run(debug=True, host='0.0.0.0', port=5001)
