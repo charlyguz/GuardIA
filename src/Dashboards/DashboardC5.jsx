@@ -116,126 +116,118 @@ const handleNotification = (probability) => {
     };
 
   return (
-    <div className="flex">
-      <div className="relative w-1/5 h-screen bg-opacity-100 overflow-hidden">
-        <div 
-          className="absolute top-0 left-0 w-full h-full bg-cover bg-center filter blur-lg" 
+    <div className="flex min-h-screen">
+      <div className="relative w-1/5 min-h-screen bg-opacity-100 overflow-hidden">
+        <div
+          className="absolute top-0 left-0 w-full h-full bg-cover bg-center filter blur-lg"
           style={{ backgroundImage: `url(${backgroundImage})` }}
         ></div>
-        <nav className="relative z-10 px-4 mt-6">
+        <nav className="relative z-10 px-4 mt-6 sticky top-0">
           <h2 className="text-4xl font-extrabold text-white my-2 h-28">GuardIA C5</h2>
           <ul className="space-y-4 text-2xl">
-          <li 
-              className={`flex items-center space-x-3 cursor-pointer ${selected === 'Cámaras' ? 'bg-white text-black rounded-lg' : 'text-white'}`} 
+            <li
+              className={`flex items-center space-x-3 cursor-pointer ${
+                selected === 'Cámaras' ? 'bg-white text-black rounded-lg' : 'text-white'
+              }`}
               onClick={() => handleSelection('Cámaras')}
-            > 
-              <CameraIcon className={`h-10 w-10 ${selected === 'Cámaras' ? 'text-black' : 'text-white'}`} />
+            >
+              <CameraIcon
+                className={`h-10 w-10 ${selected === 'Cámaras' ? 'text-black' : 'text-white'}`}
+              />
               <span>Cámaras</span>
             </li>
-            <li 
-              className={`flex items-center space-x-3 cursor-pointer ml-10 ${selected === 'Eje Lazaro Cardenas - Venus' ? 'bg-white text-black rounded-lg' : 'text-white'}`} 
+            <li
+              className={`flex items-center space-x-3 cursor-pointer ml-10 ${
+                selected === 'Eje Lazaro Cardenas - Venus'
+                  ? 'bg-white text-black rounded-lg'
+                  : 'text-white'
+              }`}
               onClick={() => handleSelection('Eje Lazaro Cardenas - Venus')}
             >
               <span>Eje Lazaro Cardenas - Venus</span>
             </li>
-            <li 
-              className={`flex items-center space-x-3 cursor-pointer ml-10 ${selected === 'Eje Lazaro Cardenas - Neptuno' ? 'bg-white text-black rounded-lg' : 'text-white'}`} 
-              onClick={() => handleSelection('Eje Lazaro Cardenas - Neptuno')}
-            >
-              <span>Eje Lazaro Cardenas - Neptuno</span>
-            </li>
-            <li 
-              className={`flex items-center space-x-3 cursor-pointer ml-10 ${selected === 'Juan de Dios Batiz [1]' ? 'bg-white text-black rounded-lg' : 'text-white'}`} 
+            <li
+              className={`flex items-center space-x-3 cursor-pointer ml-10 ${
+                selected === 'Juan de Dios Batiz [1]'
+                  ? 'bg-white text-black rounded-lg'
+                  : 'text-white'
+              }`}
               onClick={() => handleSelection('Juan de Dios Batiz [1]')}
             >
               <span>Juan de Dios Batiz [1]</span>
             </li>
-            <li 
-              className={`flex items-center space-x-3 cursor-pointer ml-10 ${selected === 'Juan de Dios Batiz [2]' ? 'bg-white text-black rounded-lg' : 'text-white'}`} 
-              onClick={() => handleSelection('Juan de Dios Batiz [2]')}
-            >
-              <span>Juan de Dios Batiz [2]</span>
-            </li>
-            <li 
-              className={`flex items-center space-x-3 cursor-pointer ml-10 ${selected === 'Juan de Dios Batiz [3]' ? 'bg-white text-black rounded-lg' : 'text-white'}`} 
-              onClick={() => handleSelection('Juan de Dios Batiz [3]')}
-            >
-              <span>Juan de Dios Batiz [3]</span>
-            </li>
-            <li 
-              className={`flex items-center space-x-3 cursor-pointer ml-10 ${selected === 'CIC esq. [1]' ? 'bg-white text-black rounded-lg' : 'text-white'}`} 
+            <li
+              className={`flex items-center space-x-3 cursor-pointer ml-10 ${
+                selected === 'CIC esq. [1]'
+                  ? 'bg-white text-black rounded-lg'
+                  : 'text-white'
+              }`}
               onClick={() => handleSelection('CIC esq. [1]')}
             >
               <span>CIC esq. [1]</span>
             </li>
-            <li 
-              className={`flex items-center space-x-3 cursor-pointer ml-10 ${selected === 'CIC esq. [2]' ? 'bg-white text-black rounded-lg' : 'text-white'}`} 
-              onClick={() => handleSelection('CIC esq. [2]')}
-            >
-              <span>CIC esq. [2]</span>
-            </li>
-            <li 
-              className={`flex items-center space-x-3 cursor-pointer ${selected === 'SOS' ? 'bg-white text-black rounded-lg' : 'text-white'}`} 
+            <li
+              className={`flex items-center space-x-3 cursor-pointer ${
+                selected === 'SOS' ? 'bg-white text-black rounded-lg' : 'text-white'
+              }`}
               onClick={() => handleSelection('SOS')}
-            > 
-              <MegaphoneIcon className={`h-10 w-10 ${selected === 'SOS' ? 'text-black rounded-lg' : 'text-white'}`} />
+            >
+              <MegaphoneIcon
+                className={`h-10 w-10 ${selected === 'SOS' ? 'text-black rounded-lg' : 'text-white'}`}
+              />
               <span>Alertar Unidades</span>
             </li>
-            <li 
-              className={`flex items-center space-x-3 cursor-pointer ${selected === 'Grabaciones' ? 'bg-white text-black rounded-lg' : 'text-white'}`} 
+            <li
+              className={`flex items-center space-x-3 cursor-pointer ${
+                selected === 'Grabaciones' ? 'bg-white text-black rounded-lg' : 'text-white'
+              }`}
               onClick={() => handleSelection('Grabaciones')}
-            > 
-              <VideoCameraIcon className={`h-10 w-10 ${selected === 'Grabaciones' ? 'text-black rounded-lg' : 'text-white'}`} />
+            >
+              <VideoCameraIcon
+                className={`h-10 w-10 ${selected === 'Grabaciones' ? 'text-black rounded-lg' : 'text-white'}`}
+              />
               <span>Grabaciones</span>
             </li>
-            <li 
-              className={`flex items-center space-x-3 cursor-pointer ${selected === 'IA' ? 'bg-white text-black rounded-lg' : 'text-white'}`} 
+            <li
+              className={`flex items-center space-x-3 cursor-pointer ${
+                selected === 'IA' ? 'bg-white text-black rounded-lg' : 'text-white'
+              }`}
               onClick={() => handleSelection('IA')}
-            > 
-              <CpuChipIcon className={`h-10 w-10 ${selected === 'IA' ? 'text-black rounded-lg' : 'text-white'}`} />
+            >
+              <CpuChipIcon
+                className={`h-10 w-10 ${selected === 'IA' ? 'text-black rounded-lg' : 'text-white'}`}
+              />
               <span>IA</span>
             </li>
           </ul>
         </nav>
       </div>
-      <div className="flex-grow p-8">
-        <h1 className="text-2xl font-bold">Dashboard Home</h1>
+      <div className="flex-grow p-8 min-h-screen">
+        <h1 className="text-2xl font-bold">Dashboard C5</h1>
         <div className="flex-grow p-8">
-          {
-            selected === 'Cámaras' ? <MultiCameras/> : <Camera label = { selected } setDanger_prob = {setDanger_prob} />
-
-          }
-      </div>
-      
-      {/* Modal Alerta */}
-      <Modal
-                title={<span className='text-2xl font-bold text-white'>Actividad Sopechosa</span>}
-                open={modalesState === 1}
-                onOk={handleOk}
-                onCancel={() => setModalesState(0)}
-                okText={'Revisar'}
-                cancelText={'Cerrar'}
-                centered={true}
-
-                styles={{
-                 
-                  
-                  content: {
-                    background: 'rgba(212, 191, 35, 0.64)',
-                    color: 'white'
-                  },
-
-                  header: {
-                    background: 'transparent'
-                  },
-                  
-                }}
-      >
-      <span  className='text-xl font-normal text-white'>Se ha detectado posible actividad sospechosa!</span>
-
-      </Modal>
-
-      <Modal
+          <Camera
+            label={selected}
+            setDanger_prob={setDanger_prob}
+            onDetection={(probabilities) => {
+              if (probabilities.length > 0) {
+                const highestProbability = Math.max(...probabilities);
+                handleNotification(highestProbability);
+              }
+            }}
+          />
+          <div className="space-y-4">
+            <Button onClick={() => handleNotification(45)} type="primary">
+              Prueba Alerta Verde (45%)
+            </Button>
+            <Button onClick={() => handleNotification(70)} type="primary">
+              Prueba Alerta Amarilla (70%)
+            </Button>
+            <Button onClick={() => handleNotification(90)} type="primary" danger>
+              Prueba Alerta Roja (90%)
+            </Button>
+          </div>
+        </div>
+        <Modal
           title="Alertar Unidades"
           visible={isModalVisible}
           onOk={handleOk}
@@ -254,7 +246,7 @@ const handleNotification = (probability) => {
           ]}
           styles={{         
             content: {
-              background: 'rgba(197, 36, 36, 0.49)',
+              background: '#FF0000',
               color: 'white'
             },
             header: {
@@ -264,41 +256,11 @@ const handleNotification = (probability) => {
             }}
           className="rounded-lg w-[700px] bg-red-700 text-white"
         >
-          <div className="bg-red-700/[0.6] text-white p-4 rounded-lg text-xl">
+          <div className="bg-#FF0000 text-white p-4 rounded-lg text-xl">
             <p>¿Desea alertar a las unidades de emergencia?</p>
             <p>Probabilidad de riesgo: {danger_prob}</p>
           </div>
         </Modal>
-
-      <Modal
-                title={<span className='text-2xl font-bold text-white'>Alerta de Peligro</span>}
-                open={modalesState === 2}
-                onOk={handleOk}
-                onCancel={() => setModalesState(0)}
-                okText={'Alertar a las unidades!'}
-                cancelText='Cerrar'
-                centered={true}
-
-                styles={{
-                 
-                  
-                  content: {
-                    background: 'rgba(206, 26, 26, 0.64)',
-                    color: 'white'
-                  },
-
-                  header: {
-                    background: 'transparent'
-                  },
-                  
-                }}
-      >
-      <span  className='text-xl font-normal text-white'>Se ha detectado una situacion de peligro!</span>
-
-      </Modal>
-      <Button type="primary" onClick={() => setModalesState(1)}>
-                Open Modal
-        </Button>
       </div>
     </div>
   );
