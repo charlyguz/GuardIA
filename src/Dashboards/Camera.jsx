@@ -137,9 +137,9 @@ const Camera = ({ label, setDanger_prob }) => {
                     <button ref={stopButtonRef} id="stopButton" className="px-4 py-2 bg-red-500 text-white rounded" disabled>Stop Video</button>
                 </div>
                 <canvas ref={processedCanvasRef} id="processedCanvas" width="640" height="480" className="border-2 border-gray-300 rounded-xl"></canvas>
-                <div className="mt-4">
+                {/* <div className="mt-4">
                     <h2 className="text-xl">Confianza Máxima: {maxConfidence.toFixed(2)}</h2>
-                </div>
+                </div> */}
             </div>
         </div>
     );

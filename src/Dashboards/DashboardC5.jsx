@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import backgroundImage from '../assets/images/bg-c5.jpg';
+import backgroundImage from '../assets/images/background.jpg';
 import { VideoCameraIcon, MegaphoneIcon, CameraIcon, CpuChipIcon } from '@heroicons/react/24/solid';
 import Camera from './Camera';
 import { MultiCameras } from '../components/MultiCameras';
@@ -34,7 +34,7 @@ const handleNotification = (probability) => {
         color: '#FFFFFF',
       },
     });
-  } else if (danger_prob >= 61 && danger_prob <= 80) {
+  } else if (danger_prob >= 61 && danger_prob <= 70) {
     notification.warning({
       message: 'Probable Amenaza Detectada',
       description: `La probabilidad de una posible amenaza es del ${probability}%. Es posible que alguien necesite ayuda, Debería estar atento a la situación.`,
@@ -42,7 +42,7 @@ const handleNotification = (probability) => {
         backgroundColor: '#FFEB3B',
       },
     });
-  } else if (danger_prob >= 81 && danger_prob <= 99) {
+  } else if (danger_prob >= 71 && danger_prob <= 99) {
     notification.error({
       message: 'Situación de Peligro Detectada',
       description: `La probabilidad de una situación de peligro es del ${probability}%. Actúe inmediatamente.`,
@@ -76,15 +76,15 @@ const handleNotification = (probability) => {
     {
       interval = setInterval(() => {
         console.log(dangerState);
-      if (danger_prob > 30 && danger_prob < 70) {
+      if (danger_prob > 30 && danger_prob < 50) {
         setdangerState(1)
 
-      } else if (danger_prob > 70) {
+      } else if (danger_prob > 60) {
         setdangerState(2)
       } else {
         setdangerState(0);
       }
-    }, 800);
+    }, 1200);
   } // 5000 ms = 5 segundos
 
     return () => clearInterval(interval); // Limpia el intervalo cuando el componente se desmonte

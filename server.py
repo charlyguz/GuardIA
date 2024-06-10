@@ -13,14 +13,23 @@ app = Flask(__name__)
 CORS(app)
 
 pathlib.PosixPath = pathlib.WindowsPath
-# Cargar el modelo YOLOv5
-model_path = 'bestfinal.pt'  # Ajusta esto si tu archivo .pt está en otro lugar
-model = torch.hub.load('ultralytics/yolov5', 'custom', path=model_path, force_reload=True)  # Cargar el modelo YOLOv5
+# Verificar y configurar dispositivo
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+print(f"Using device: {device}")
+
+
+# Intentar cargar el modelo personalizado utilizando torch.hub.load
+try:
+    model = torch.hub.load('ultralytics/yolov5', 'custom', path='bestfinal.pt')
+    model.to(device)
+    print("Modelo cargado exitosamente.")
+except Exception as e:
+    print(f"Error al cargar el modelo: {e}")
 
 @app.route('/')
 def index():
-    return "Servidor YOLOv5 activo y funcionando correctamente."
-
+    device_type = 'GPU' if device.type == 'cuda' else 'CPU'
+    return f"Servidor YOLOv5 activo y funcionando correctamente. \n Usando : {device_type} el dispositivo es {device}"
 @app.route('/process_image', methods=['POST'])
 def process_image():
     if 'frame' not in request.files:
@@ -73,8 +82,8 @@ if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)
     logger = logging.getLogger(__name__)
 
-    @app.before_first_request
-    def log_ready():
-        logger.info("Server running on port 5000")
+    # @app.before_first_request
+    # def log_ready():
+    #     logger.info("Server running on port 5000")
 
     app.run(debug=True, host='0.0.0.0', port=5000)
